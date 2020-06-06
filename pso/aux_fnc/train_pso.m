@@ -13,6 +13,7 @@ net = patternnet(hiddenLayerSize);
 net.inputs{1}.processFcns = {};
 net.outputs{2}.processFcns = {};
 % Configure the network
+net=config_net(net);
 net = configure(net,x,t);
 %%  Data division
 trainRatio = 70/100;
