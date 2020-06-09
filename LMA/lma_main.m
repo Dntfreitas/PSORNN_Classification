@@ -1,4 +1,6 @@
 addpath(genpath(pwd()));
-data_import
+dataimportMRMR
 
-train_LMA(input_red_wine, output_red_wine, 10)
+hiddenLayerSize = 10;
+
+[net,tr,testPerformance,accuracy] = train_LMA(input_red_wine, output_red_wine, hiddenLayerSize, 'redWine', 1);

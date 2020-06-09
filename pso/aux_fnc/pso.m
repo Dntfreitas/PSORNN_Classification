@@ -1,4 +1,4 @@
-function [net] = pso(net, hiddenLayerSize, ninputs, noutputs, trainX, trainT, validationX, validationT)
+function [net] = pso(net, hiddenLayerSize, ninputs, noutputs, trainX, trainT, validationX, validationT, dir, j)
 %PSO Particle Swarm Optimisation
 %   Use PSO to find the optimal weights of an ANN
 
@@ -11,6 +11,12 @@ bup = 10;
 %% Initialization
 % Initialize the particles' position 
 x = initWeights(ninputs, ndimension, nparticles);
+
+% Export data
+r = randi([1 nparticles]);
+iniW = x(:, r);
+save(strcat(dir,'/weights_init_',num2str(j),'.mat'),'iniW')
+
 % Initialize the particles' best known position to its initial position
 p = x;
 %  Initialize the global best known position
