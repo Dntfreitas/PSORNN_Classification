@@ -52,4 +52,3 @@ figure, plotconfusion(testT,testY)
 savefig(strcat(dir,'/',num2str(j),'_conf.fig'));
 figure, plotroc(testT,testY)
 savefig(strcat(dir,'/',num2str(j),'_roc.fig'));
-savefig()

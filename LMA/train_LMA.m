@@ -10,7 +10,7 @@ net = patternnet(hiddenLayerSize,trainFcn);
 net.inputs{1}.processFcns = {};
 net.outputs{2}.processFcns = {};
 % Configure the network
-net=config_net(net);
+net = config_net(net);
 net = configure(net,x,t);
 
 net.IW{1,1} = initWeights(ninputs, hiddenLayerSize, ninputs);
@@ -45,10 +45,7 @@ a = confusionmat(vec2ind(testT),vec2ind(testY));
 
 % Accuracy
 accuracy=sum(diag(a))/numel(testIndices)*100;
-
-
 figure, plotconfusion(testT,testY)
 savefig(strcat(dir,'/',num2str(j),'_conf.fig'));
 figure, plotroc(testT,testY)
 savefig(strcat(dir,'/',num2str(j),'_roc.fig'));
-savefig()

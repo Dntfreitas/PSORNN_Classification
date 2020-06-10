@@ -4,7 +4,7 @@ function [net] = pso(net, hiddenLayerSize, ninputs, noutputs, trainX, trainT, va
 
 ndimension = ninputs*hiddenLayerSize + noutputs*hiddenLayerSize + hiddenLayerSize + noutputs; % Number of dimensions
 nparticles = 25; % Number of particles
-maxiterations = 20;
+maxiterations = 200;
 blo = -10;
 bup = 10;
 
