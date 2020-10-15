@@ -13,14 +13,6 @@ net.outputs{2}.processFcns = {};
 net = config_net(net);
 net = configure(net,x,t);
 
-net.IW{1,1} = initWeights(ninputs, hiddenLayerSize, ninputs);
-net.LW{2,1} = initWeights(ninputs, noutputs, hiddenLayerSize);
-
-% Export data
-dir = strcat('LMA/weights/',name,'/',num2str(hiddenLayerSize));
-mkdir(dir)
-save(strcat(dir,'/weights_init_',num2str(j),'.mat'),'net')
-
 %% Data Division
 net.divideParam.trainRatio=0.7;
 net.divideParam.valRatio=0.15;
