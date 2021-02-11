@@ -6,23 +6,25 @@ NET={};
 TR={};
 perf=[];
 acc=[];
+time=[];
+epochs=[];
 
 for i=1:length(hiddenLayerSize)
     for j=1:10
-	    [net,tr,testPerformance,accuracy] = train_LMA(input, output, hiddenLayerSize(i), name, j);
+	    [net,tr,testPerformance,accuracy,t,e] = train_LMA(input, output, hiddenLayerSize(i), name, j);
 	    NET{i,j}=net;
 	    TR{i,j}=tr;
 	    perf(i,j)=testPerformance;
 	    acc(i,j)=accuracy;  
+        time(i,j)=t;
+        epochs(i,j)=e;
     end
 end
 
-result = results(hiddenLayerSize,acc);
-resultCells = num2cell(result);
-header = {'No. hidden','Best Acc','Worst Acc', 'Mean', 'STD'};
-outputXLS = [header; resultCells];
-xlswrite(strcat(name,'.xls'), outputXLS);
-
+result = results(hiddenLayerSize,acc,time,epochs);
+header = {'No. hidden','Best Acc','Worst Acc', 'Mean', 'STD', 'Mean Time', 'STD Time', 'Mean Epochs', 'STD Epochs'};
+outputCSV = array2table(result, 'VariableNames', header);
+writetable(outputCSV,strcat(name,'.csv'))
 
 % Get best and worst MSE
 best_acc = max(max(acc));

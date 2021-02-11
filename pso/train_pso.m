@@ -1,4 +1,4 @@
-function [net, testPerformance,accuracy] = train_pso(x, t, hiddenLayerSize, name, j)
+function [net, testPerformance,accuracy,tim,i] = train_pso(x, t, hiddenLayerSize, name, j)
 %PSO Train an ANN using PSO
 %   Run PSO to train an ANN
 
@@ -30,7 +30,9 @@ dir = strcat('pso/weights/',name,'/',num2str(hiddenLayerSize));
 mkdir(dir)
 
 %% Network train
-net = pso(net, hiddenLayerSize, ninputs, noutputs, trainX, trainT, validationX, validationT, dir, j);
+tic
+[net, i] = pso(net, hiddenLayerSize, ninputs, noutputs, trainX, trainT, validationX, validationT, dir, j);
+tim = toc;
 
 % Export data
 save(strcat(dir,'/weights_final_',num2str(j),'.mat'),'net')

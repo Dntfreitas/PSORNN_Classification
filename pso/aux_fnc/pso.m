@@ -1,16 +1,16 @@
-function [net] = pso(net, hiddenLayerSize, ninputs, noutputs, trainX, trainT, validationX, validationT, dir, j)
+function [net, i] = pso(net, hiddenLayerSize, ninputs, noutputs, trainX, trainT, validationX, validationT, dir, j)
 %PSO Particle Swarm Optimisation
 %   Use PSO to find the optimal weights of an ANN
 
 ndimension = ninputs*hiddenLayerSize + noutputs*hiddenLayerSize + hiddenLayerSize + noutputs; % Number of dimensions
 nparticles = 25; % Number of particles
-maxiterations = 200;
-blo = -10;
-bup = 10;
+maxiterations = 1000;
+bup = rand;
+blo = -bup;
 
 %% Initialization
 % Initialize the particles' position 
-x = initWeights(ninputs, ndimension, nparticles);
+x = rand(ndimension, nparticles);
 
 % Export data
 r = randi([1 nparticles]);
@@ -26,11 +26,24 @@ g = x(:, pos);
 v = init_velocity(-abs(blo-bup), abs(blo-bup), ndimension, nparticles);
 
 %% Main loop
-for i = 1:maxiterations
+cost_prev = Inf;
+no_non_improv = 0;
+i = 1;
+while i<=maxiterations && no_non_improv <= 6
     v = compute_velocity(x, p, g, v);
     x = x + v;
     % Get the particles' best known position
-    [p, g] = compute_p_best(x, p, g, net, trainX, trainT);
+    [p, g, cost_curr] = compute_p_best(x, p, g, net, trainX, trainT);
+    % Check early stopping
+    if cost_curr >= cost_prev
+        no_non_improv = no_non_improv + 1;
+    else
+        no_non_improv = 0;
+    end
+    % Save the current cost as previous
+    cost_prev = cost_curr;
+    % Increment the number of iterations    
+    i = i + 1;
 end
 
 %% Select the best net using the validation dataset
@@ -54,7 +67,7 @@ net.b{2,1}  = b2;
 
 end
 
-function [p_next, g_next] = compute_p_best(x, p, g, net, trainX, trainT)
+function [p_next, g_next, fg] = compute_p_best(x, p, g, net, trainX, trainT)
     fx = f(net, trainX, trainT, x);
     fp = f(net, trainX, trainT, p);
     fg = f(net, trainX, trainT, g);  

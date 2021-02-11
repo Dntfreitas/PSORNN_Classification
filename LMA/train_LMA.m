@@ -1,4 +1,4 @@
-function [net,tr,testPerformance,accuracy] = train_LMA(x, t, hiddenLayerSize, name, j)
+function [net,tr,testPerformance,accuracy,tim,epochs] = train_LMA(x, t, hiddenLayerSize, name, j)
 %% Initialization
 [ninputs, ~] = size(x);
 [noutputs, ~] = size(t);
@@ -18,8 +18,17 @@ net.divideParam.trainRatio=0.7;
 net.divideParam.valRatio=0.15;
 net.divideParam.testRatio=0.15;
 
-% Train the Network
+%% Dir to export the data
+dir = strcat('LMA/weights/',name,'/',num2str(hiddenLayerSize));
+mkdir(dir)
+
+%% Train the Network
+tic
 [net,tr] = train(net,x,t);
+tim = toc;
+
+% Extract the number of epochs
+epochs = tr.num_epochs;
 
 % Export data
 save(strcat(dir,'/weights_final_',num2str(j),'.mat'),'net')
