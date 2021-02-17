@@ -1,6 +1,6 @@
-function [result, bestNet, worstNet] = test_LMA(input,output, name)
+function [result, bestNet, worstNet] = test_LMA(input,output, name, initialize, fileName, database, method)
 
-hiddenLayerSize =[4,7,10,12,15,20] ;
+hiddenLayerSize = [4, 7, 10, 12, 15, 20] ;
 
 NET={};
 TR={};
@@ -9,10 +9,24 @@ acc=[];
 time=[];
 epochs=[];
 
+if initialize
+    numRepetitions = 1;
+    initialWeights = loadWeights(fileName, database, method);
+else
+    numRepetitions = 10;
+end
+
 for i=1:length(hiddenLayerSize)
-    for j=1:10
-	    [net,tr,testPerformance,accuracy,t,e] = train_LMA(input, output, hiddenLayerSize(i), name, j);
-	    NET{i,j}=net;
+    for j=1:numRepetitions
+        if initialize 
+            IW = initialWeights{hiddenLayerSize(i),1};
+            LW = initialWeights{hiddenLayerSize(i),2};
+            b = initialWeights{hiddenLayerSize(i),3};
+            [net,tr,testPerformance,accuracy,t,e] = train_LMA(input, output, hiddenLayerSize(i), name, j,IW,LW,b);
+        else
+            [net,tr,testPerformance,accuracy,t,e] = train_LMA(input, output, hiddenLayerSize(i), name);
+        end
+        NET{i,j}=net;
 	    TR{i,j}=tr;
 	    perf(i,j)=testPerformance;
 	    acc(i,j)=accuracy;  

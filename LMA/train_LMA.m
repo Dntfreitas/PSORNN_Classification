@@ -1,4 +1,4 @@
-function [net,tr,testPerformance,accuracy,tim,epochs] = train_LMA(x, t, hiddenLayerSize, name, j)
+function [net,tr,testPerformance,accuracy,tim,epochs] = train_LMA(x, t, hiddenLayerSize, name, j, IW, LW, b)
 %% Initialization
 [ninputs, ~] = size(x);
 [noutputs, ~] = size(t);
@@ -12,7 +12,12 @@ net.outputs{2}.processFcns = {};
 % Configure the network
 net = config_net(net);
 net = configure(net,x,t);
-
+% If required, load the initial weights
+if exist('IW', 'var') && exist('LW', 'var') && exist('b', 'var')
+   net.IW = IW;
+   net.LW = LW;
+   net.b = b;
+end
 %% Data Division
 net.divideParam.trainRatio=0.7;
 net.divideParam.valRatio=0.15;
