@@ -6,7 +6,6 @@ no_neurons = [4,7,10,12,15,20];
 
 i = 1;
 for neurons = no_neurons
-    net_loaded = 3;
     name_file = strcat('pso\weights\',data_base,'\',num2str(neurons), '\weights_final_',num2str(best_number(i)),'.mat');
     load(name_file)
     iw_saved = eval(strcat('PSO_',method,'_',name,'_',num2str(neurons),'.IW'));
