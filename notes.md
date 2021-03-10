@@ -1,10 +1,32 @@
 # Accuracy
 
-For all datasets, the best accuracy was achieved by the combination PSO--CHI. It is important to note, however, that in terms of the general mean accuracy, the LMA--Hybrid--CHI2 is the combination that achieved the best results, except for the white wine dataset; nevertheless, the LMA--Hybrid--CHI2 and the LMA--Hybrid--MRMR obtained similar results in this dataset. Contrarily, the worst accuracy was obtained by the PSO--MRMR combination.
+## Plots 
 
-Moreover, the PSO--CHI2 also revealed to be the algorithm combination with the highest standard deviation. It is noteworthy that this combination reported requiring a number of hidden neurons less than or equal to the combination that comes in the second place for all datasets, except the cars’ dataset.
+For all datasets, the best accuracy was achieved by the combination PSO--CHI2. 
 
-Despite that, the LMA showed to be the most stable algorithm in terms of accuracy. These results were already expected since the LMA is an exact algorithm (i.e., the optimisation process is based on the calculation of the gradient of the error function), and in its turn, the PSO is a pure stochastic optimisation algorithm.
+The best accuracies of LMA-Hybrid-Chi2 and LMA-Chi2 are almost same,the difference lies in the worst case accuracies of both methods.
+
+Chi2 works best in all the cases than MRMR.
+
+## General Comments
+
+However, when considering the general mean accuracy, the LMA--Hybrid--CHI2 is the combination that achieved the best results. Contrarily, the worst accuracy was obtained by the PSO--MRMR combination. These results are depicted in Table 1.
+
+| OptimizationFeature   |   Mean (%)     |   No. hidden |
+|:----------------------|---------------:|-------------:|
+| LMA-CHI2              | 63.388 ± 2.854 |        15    |
+| LMA-MRMR              | 58.658 ± 2.823 |         7    |
+| PSO-CHI2              | 58.214 ± 7.880 |       10/12  |
+| PSO-MRMR              | 53.982 ± 6.548 |        12    |
+| **LMA-Hybrid-CHI2**   | **67.084**     |         10   |
+| LMA-Hybrid-MRMR       | 60.621         |         10   |
+**Table 1:** Results for the general mean accuracy and number of hidden neurons for the best accuracy.
+
+Despite being the best in terms of accuracy, the PSO--CHI2 revealed, at the same time, to be the algorithm combination with the highest standard deviation on the accuracy results. In other words, this means that one can obtain in some trials a high accuracy for a given dataset using this combination, but also a low accuracy in some other trials on the same dataset. With respect to the stability on the accuracy, and as can be seen in Table 1, the LMA showed to be the most stable algorithm, regardless of the feature selection method. 
+[comment] https://onlinelibrary.wiley.com/doi/pdf/10.1002/ecj.10388 (better)
+[comment] https://cs.adelaide.edu.au/~zbyszek/PapersRB/Stabilityanalyses.pdf
+
+On the other hand, it is noteworthy that the PSO--CHI2 combination reported requiring, for the highest accuracy results, a number of hidden neurons less than or equal to the combination that comes in the second place for all datasets, except the cars’ dataset. In the general case, and as can be seen in Table 1, the highest complexity architecture performed poorly than simpler neural network architectures (i.e., number of hidden neurons). For instance, in the cars' and Parkinson's datasets the worst accuracy was achieved by the architecture with 20 hidden neurons, whereas the architecture consisting of 10 hidden neurons performed best. Moreover, regardless of the feature selection, both PSO and LMA--Hybrid required more less the same number of hidden units; however, this is not the case with LMA, where CHI2 required almost the double number of hidden units for achieving an increase of approximately 5% in the mean accuracy. 
 
 # Epochs
 
