@@ -2,11 +2,9 @@
 
 ## Plots 
 
-For all datasets, the best accuracy was achieved by the combination PSO--CHI2. 
-
-The best accuracies of LMA-Hybrid-Chi2 and LMA-Chi2 are almost same,the difference lies in the worst case accuracies of both methods.
-
-Chi2 works best in all the cases than MRMR.
+- For all datasets, the best accuracy was achieved by the combination PSO--CHI2. 
+- The best accuracies of LMA-Hybrid-Chi2 and LMA-Chi2 are almost same,the difference lies in the worst case accuracies of both methods.
+- Chi2 works best in all the cases than MRMR.
 
 ## General Comments
 
